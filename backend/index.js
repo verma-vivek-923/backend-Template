@@ -1,12 +1,26 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import dotenv  from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import userRouter from './routers/user.route.js'
+import { mongoConfig } from "./config/mongo.config.js";
+import cookieParser from "cookie-parser";
+const app = express();
 
-const app=express();
+dotenv.config();
 
-mongoose.connect("mongodb://0.0.0.1:27017/my-db")
+ const Port = process.env.PORT;
+    
+mongoConfig();
 
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
+app.use(express.json())
+app.use(cookieParser())
 
-app.listen(4500)
+app.use('/user',userRouter)
+
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
+app.listen(Port, () => {
+  console.log("Port is runninng ", Port);
+});
