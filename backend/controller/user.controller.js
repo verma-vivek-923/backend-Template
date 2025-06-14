@@ -81,5 +81,9 @@ export const getAllUser=async (req,res)=>{
 }
 
 export const MyProfile=async (req,res)=>{
-   
+   const loged_User=await req.loged_User;
+
+   console.log(loged_User)
+
+   res.status(200).json(loged_User)
 }
