@@ -43,6 +43,8 @@ try {
 export const login=async (req,res)=>{
    const {userName,password}=req.body;
 
+   console.log(userName,password)
+
    const find_user=await user_modal.findOne({username:userName})
    let isMatch;
 
