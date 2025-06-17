@@ -5,30 +5,36 @@ import axiosInstance from "../utilities/axiosInstance";
 import toast from "react-hot-toast";
 
 const Login = () => {
-const [loading,setLoading]=useState();
+  const [loading, setLoading] = useState();
 
-const [loginData,setLoginData]=useState({
-  userName:"",
-  password:""
-
-});
-
+  const [loginData, setLoginData] = useState({
+    userName: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
-
-    setLoginData({...loginData,[e.target.name]:e.target.value})
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
     // console.log(loginData)
   };
-  
-  const handleSubmit =async (e) => {
-    e.preventDefault()
-    console.log(loginData)
-    
-    const {data}=await axiosInstance.post("/user/login",loginData)
 
-      toast.success("login successfull")
-    console.log(data)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(loginData);
 
+    try {
+      const { data } = await axiosInstance.post("/user/login", loginData);
+
+      toast.success("login successfull", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -41,7 +47,7 @@ const [loginData,setLoginData]=useState({
               type="text"
               autoComplete="off"
               placeholder="username address"
-                name="userName"
+              name="userName"
               // name={loginData.username}
               value={loginData.username}
               onChange={handleChange}
@@ -56,7 +62,7 @@ const [loginData,setLoginData]=useState({
               type="password"
               autoComplete="off"
               placeholder="Password"
-                name="password"
+              name="password"
               value={loginData.password}
               onChange={handleChange}
               required
