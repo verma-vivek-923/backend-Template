@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { MdOutlineusername } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import axiosInstance from "../utilities/axiosInstance";
+import toast from "react-hot-toast";
 
 const Login = () => {
 const [loading,setLoading]=useState();
@@ -16,7 +17,7 @@ const [loginData,setLoginData]=useState({
   const handleChange = (e) => {
 
     setLoginData({...loginData,[e.target.name]:e.target.value})
-    console.log(loginData)
+    // console.log(loginData)
   };
   
   const handleSubmit =async (e) => {
@@ -25,6 +26,7 @@ const [loginData,setLoginData]=useState({
     
     const {data}=await axiosInstance.post("/user/login",loginData)
 
+      toast.success("login successfull")
     console.log(data)
 
   };
