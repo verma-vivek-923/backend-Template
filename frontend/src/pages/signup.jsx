@@ -7,13 +7,14 @@ import toast from "react-hot-toast";
 const Signup = () => {
   const [loading, setLoading] = useState();
 
-  const [SignupData, setSignupData] = useState({
+  const [signupData, setSignupData] = useState({
     userName: "",
+    role: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setSignupData({ ...SignupData, [e.target.name]: e.target.value });
+    setSignupData({ ...signupData, [e.target.name]: e.target.value });
     // console.log(SignupData)
   };
 
@@ -22,7 +23,7 @@ const Signup = () => {
     console.log(SignupData);
 
     try {
-      const { data } = await axiosInstance.post("/user/Signup", SignupData);
+      const { data } = await axiosInstance.post("/user/signup", signupData);
 
       toast.success("Signup successfull", {
         style: {
@@ -54,6 +55,23 @@ const Signup = () => {
               required
               className="w-full focus:outline-none"
             />
+          </div>
+          <div className="flex mb-2 items-center border rounded p-2 focus-within:bg-slate-100">
+            {/* <MdOutlineusername className="text-gray-500 mr-2" /> */}
+            <select
+              type="text"
+              autoComplete="off"
+              name="role"
+              value={SignupData.role}
+              onChange={handleChange}
+              required
+              className="w-full focus:outline-none"
+            >
+              <option value=''>Select role</option>
+              <option value='admin'>admin</option>
+              <option value='user'>user</option>
+
+            </select>
           </div>
 
           <div className="flex mb-2 items-center border rounded p-2 focus-within:bg-slate-100">
